@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace ="myBatis_LeagueofLegends.CampShop">
+	<resultMap type="champShop" id="champShopResult" >
+		<id property="id" column="id" />
+ 		<id property="cid" column="cid" />
+		<id property="sid" column="sid" />
+		
+	</resultMap>
+	
+	<!-- Skin hozzárendelése champion-hoz -->
+	<insert id="champShop" parameterType="champShop">
+		INSERT INTO champshop(id, cid, sid) VALUES(#{id}, #{cid}, #{sid})
+	</insert>
+	
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace ="myBatis_LeagueofLegends.ShopMapper">
+	<resultMap type="shop" id="shopResult" >
+		<id property="sid" column="sid" />
+		<result property="skinname" column="skinname" />
+		<result property="price" column="price" />
+	</resultMap>
+	
+	<!-- Skin felvitele -->
+	<insert id="insertShop" parameterType="shop" keyProperty="sid">
+		INSERT INTO shop(sid, skinname, price) VALUES(#{sid}, #{skinname}, #{price})
+	</insert>
+	
+	<!-- Skin árának módosítása ID alapján-->
+	<update id="updatePrice" parameterType="champion">
+		UPDATE shop SET price = #{price} WHERE sid = #{sid}
+	</update>
+	
+	<!-- Champion skin-ének módosítása ID alapján -->
+	<update id="updateShop" parameterType="shop">
+		UPDATE champion SET shop = #{shop} WHERE sid = #{sid}
+	</update>
+	
+	<!-- Skin törlése ID alapján -->
+	<delete id="deleteSkin" parameterType="int">
+		DELETE FROM shop WHERE sid = #{sid}
+	</delete>
+	
+	<!-- Paraméterként megadott Champion-hoz milyen skin tartozik -->
+	<select id="selectSkinByChampion" resultType="shop" parameterType="int" resultMap="shopResult">
+		select skinname from shop where sid IN (select sid from champshop where cid = #{102});
+	</select>
+	
+	<!-- Összes képzés lekérdezése -->
+	<select id="findAllSkin" resultType="shop" resultMap="shopResult">
+		SELECT * FROM shop
+	</select>
+	
+</mapper>

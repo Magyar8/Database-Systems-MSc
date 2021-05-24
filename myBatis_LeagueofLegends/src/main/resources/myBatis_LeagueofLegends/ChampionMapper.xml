@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace ="myBatis_LeagueofLegends.ChampionMapper">
+	<resultMap type="champion" id="championResult" >
+		<id property="cid" column="cid" />
+		<result property="cname" column="cname" />
+		<result property="role" column="role" />
+		<result property="difficulty" column="diffculty" />
+		
+	</resultMap>
+	
+	<!-- Champion felvitele -->
+	<insert id="insertChampion" parameterType="champion" keyProperty="cid">
+		INSERT INTO champion(cid, cname, role, difficulty) VALUES(#{cid}, #{cname}, #{role}, #{difficulty})
+	</insert>
+	
+	<!-- Champion nehézségének módosítása ID alapján-->
+	<update id="updateDifficulty" parameterType="champion">
+		UPDATE champion SET difficulty = #{difficulty} WHERE cid = #{cid}
+	</update>
+	
+	<!-- Champion szerepének módosítása ID alapján -->
+	<update id="updateRole" parameterType="champion">
+		UPDATE champion SET role = #{role} WHERE cid = #{cid}
+	</update>
+	
+	<!-- Champion törlése ID alapján -->
+	<delete id="deleteChampion" parameterType="int">
+		DELETE FROM champion WHERE cid = #{cid}
+	</delete>
+	
+	<!-- Összes Champion lekérdezése -->
+	<select id="findAllChampion" resultType="champion" resultMap="championResult">
+		SELECT * FROM champion
+	</select>
+	
+</mapper>
